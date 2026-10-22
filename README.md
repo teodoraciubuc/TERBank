@@ -1,32 +1,22 @@
 # TERBank
 
-TERBank este o aplicație Java de consolă pentru gestionarea tranzacțiilor e-banking, dezvoltată pentru disciplina Programare și Proiectare Orientată Obiect (PPOO).
-Proiectul folosește Java simplu, fără Maven sau Gradle.
+TERBank este o aplicație Java de consolă pentru gestiunea simplificată a conturilor și tranzacțiilor, realizată pentru disciplina PPOO. Proiectul folosește Java 21 și biblioteci standard, fără Maven, Gradle sau bază de date. Sumele sunt de tip `double`, potrivite pentru această simulare educațională.
 
-## Structura proiectului
+## Compilare și rulare
 
-```text
-src/
-└── ro/
-    └── terbank/
-        └── Main.java
+Din PowerShell, în directorul principal al proiectului:
+
+```powershell
+New-Item -ItemType Directory -Force -Path out | Out-Null
+$javaFiles = Get-ChildItem -Path src -Recurse -Filter *.java | ForEach-Object { $_.FullName }
+javac -encoding UTF-8 -d out $javaFiles
+java '-Dfile.encoding=UTF-8' -cp out ro.terbank.Main
 ```
 
-## Rulare din linia de comandă
+În IntelliJ IDEA, deschideți proiectul, configurați JDK 21, marcați `src` ca **Sources Root** și rulați `ro.terbank.Main`.
 
-Este necesar un JDK instalat. Din directorul principal al proiectului, executați:
+La pornire, aplicația citește `data/conturi.txt` și `data/tranzactii.txt`. La ieșire, salvează datele în aceste fișiere. Opțiunea de raport creează `rapoarte/raport.txt`. Toate căile sunt relative la directorul proiectului.
 
-```sh
-javac -d out src/ro/terbank/Main.java
-java -cp out ro.terbank.Main
-```
+Datele sunt text simplu, separate prin `|`. Un cont folosește formatul `C001|Ana Popescu|1500.0`. O tranzacție conține ID-ul, tipul, suma, data și ora, contul sursă și contul destinație; câmpurile de cont nefolosite rămân goale. Caracterul `|` nu este permis în câmpuri.
 
-La pornire, aplicația afișează:
-
-```text
-Bun venit la TERBank!
-```
-
-## Rulare în IntelliJ IDEA
-
-Deschideți directorul proiectului în IntelliJ IDEA, configurați un JDK și marcați directorul `src` ca **Sources Root** dacă nu este recunoscut automat. Apoi rulați metoda `main` din clasa `ro.terbank.Main`.
+Aplicația folosește `HashMap<String, ContBancar>` pentru conturi, `ArrayList<Tranzactie>` pentru istoric, un vector și o matrice primitive pentru statistici. Clasele și responsabilitățile lor sunt descrise în [documentație](docs/Documentatie_TERBank.md).

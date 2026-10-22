@@ -1,0 +1,20 @@
+# Fișiere locale IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Clase compilate și directoare de build
+*.class
+out/
+build/
+
+# Datele aplicației și rapoartele generate local
+data/
+rapoarte/
+
+# Fișiere temporare și loguri
+*.tmp
+*.log
+.build-verification/
+.terbank-*/
